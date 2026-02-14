@@ -1,0 +1,608 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JC Soluções em Tecnologia</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons (Versão Vanilla JS) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animações customizadas */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden">
+
+    <!-- --- NAVBAR --- -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4 md:py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+
+            <!-- Logo (Agora usando sua Imagem) -->
+            <a href="#" class="flex items-center gap-3 group relative z-50">
+                <!--
+                   AQUI VAI SUA LOGO:
+                   1. Salve sua imagem sem fundo como 'logo.png'
+                   2. Coloque na mesma pasta deste arquivo
+                -->
+                <img src="Imagens/Logos da Empresa/Fundo transparente.png" alt="JC Soluções Logo" class="h-16 md:h-20 w-auto object-contain drop-shadow-lg transition-all duration-300" onerror="this.style.display='none'; document.getElementById('logo-fallback').classList.remove('hidden');">
+
+                <!-- Fallback (aparece só se a imagem der erro) -->
+                <div id="logo-fallback" class="hidden bg-blue-700 p-2 rounded-lg text-white group-hover:bg-blue-600 transition-colors shadow-lg">
+                    <i data-lucide="globe" class="w-8 h-8 stroke-[2.5]"></i>
+                </div>
+
+                <div class="flex flex-col">
+                    <span id="nav-logo-text" class="text-xl md:text-2xl font-bold tracking-tight leading-none text-white transition-colors">
+                        SOLUÇÕES
+                    </span>
+                    <span id="nav-logo-sub" class="text-[10px] md:text-xs uppercase tracking-widest font-medium text-cyan-400 transition-colors">
+                        EM TECNOLOGIA
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <div id="nav-links" class="hidden md:flex items-center gap-8 font-medium text-slate-300 transition-colors">
+                <a href="#servicos" class="hover:text-blue-500 transition-colors">O que fazemos</a>
+                <a href="#sobre" class="hover:text-blue-500 transition-colors">A Empresa</a>
+                <a href="#contato" class="hover:text-blue-500 transition-colors">Contato</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#contato" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/30 text-sm inline-block">
+                    Falar com Especialista
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none relative z-50 p-2">
+                <i data-lucide="menu" class="w-8 h-8 transition-transform duration-300"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- --- MOBILE MENU OVERLAY --- -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center gap-8 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <a href="#servicos" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300">O que fazemos</a>
+        <a href="#sobre" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-75">A Empresa</a>
+        <a href="#contato" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-100">Contato</a>
+        <a href="#contato" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-blue-600/20 mt-4 mobile-link transform translate-y-4 transition-transform duration-300 delay-150">
+            Solicitar Orçamento
+        </a>
+    </div>
+
+    <!-- --- HERO SECTION --- -->
+    <header class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-slate-900">
+
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-blue-900/20 to-transparent"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-20 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/40 border border-blue-700/50 text-blue-300 text-xs md:text-sm font-medium">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Nova Identidade Visual 2026
+                </div>
+
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                    Problemas complexos,<br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                        Soluções simples.
+                    </span>
+                </h1>
+
+                <p class="text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+                    Transformamos ideias em softwares robustos e empresas locais em autoridades digitais. A ponte entre o seu negócio e o futuro da tecnologia.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#servicos" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                        Conheça nossas soluções
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#sobre" class="border border-slate-600 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all text-center w-full sm:w-auto">
+                        Conhecer a JC
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image/Abstract Representation -->
+            <div class="relative animate-fade-in-up mt-8 md:mt-0" style="animation-delay: 0.2s;">
+                <div class="relative z-10 bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-4 md:p-6 shadow-2xl transform rotate-2 md:rotate-3 hover:rotate-0 transition-all duration-500 group mx-auto max-w-sm md:max-w-full">
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-4">
+                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-auto text-[10px] md:text-xs text-slate-500 font-mono">app_controller.cs</span>
+                    </div>
+                    <div class="space-y-2 md:space-y-3 font-mono text-[10px] md:text-sm overflow-x-auto">
+                        <div class="flex">
+                            <span class="text-blue-400 w-6 md:w-8 text-right mr-2 select-none opacity-50">01</span>
+                            <span class="text-purple-400">namespace</span> <span class="text-white ml-2">JCSolucoes.Core</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">02</span>
+                            <span class="text-white">{</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">03</span>
+                            <span class="text-emerald-400 ml-2 md:ml-4">public class</span> <span class="text-yellow-300 ml-2">Innovation</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">04</span>
+                            <span class="text-white ml-2 md:ml-4">{</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">05</span>
+                            <span class="text-blue-300 ml-4 md:ml-8">public void</span> <span class="text-yellow-100 ml-2">Simplify()</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">06</span>
+                            <span class="text-white ml-4 md:ml-8">{</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">07</span>
+                            <span class="text-slate-400 ml-6 md:ml-12">// Otimizando...</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">08</span>
+                            <span class="text-white ml-6 md:ml-12">return</span> <span class="text-emerald-400 ml-2">Success;</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">09</span>
+                            <span class="text-white ml-4 md:ml-8">}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">10</span>
+                            <span class="text-white ml-2 md:ml-4">}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-slate-600 w-6 md:w-8 text-right mr-2 select-none opacity-50">11</span>
+                            <span class="text-white">}</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating Stat Card -->
+                    <div class="absolute -bottom-6 -right-4 md:-bottom-8 md:-right-8 bg-white p-3 md:p-4 rounded-lg shadow-xl border-l-4 border-blue-600 flex items-center gap-3 transition-transform group-hover:scale-105">
+                        <div class="bg-blue-100 p-2 rounded-full text-blue-600">
+                            <i data-lucide="rocket" class="w-4 h-4 md:w-5 md:h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] md:text-xs text-slate-500 font-bold uppercase">Performance</p>
+                            <p class="text-sm md:text-lg font-bold text-slate-800">+ 300% Views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- --- SERVICES SECTION --- -->
+    <section id="servicos" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-blue-600 font-bold tracking-wide uppercase text-sm mb-2">Nossas Especialidades</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Do Marketing ao Código Puro</h3>
+                <p class="text-slate-600 text-lg">
+                    Atuamos em duas frentes principais: impulsionar sua marca e resolver suas dores operacionais com software.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: Sites & Marketing -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all group">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="monitor" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-slate-900 mb-4">Websites & Presença Digital</h4>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Não criamos apenas sites, construímos máquinas de vendas. Focamos em design intuitivo e SEO para garantir que sua empresa não só seja vista, mas escolhida.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i>
+                            <span>Landing Pages de Alta Conversão</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i>
+                            <span>Sites Institucionais Otimizados</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i>
+                            <span>Estratégia de Visibilidade</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Software & Apps -->
+                <div class="bg-slate-900 p-8 rounded-2xl shadow-lg text-white hover:shadow-2xl transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-bl-full"></div>
+
+                    <div class="w-14 h-14 bg-slate-700 text-blue-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform relative z-10">
+                        <i data-lucide="cpu" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4 relative z-10">Softwares & Apps Sob Medida</h4>
+                    <p class="text-slate-300 mb-6 leading-relaxed relative z-10">
+                        Transformamos processos manuais e complexos em sistemas simples e eficientes. Do aplicativo mobile ao sistema de gestão robusto (C#/.NET).
+                    </p>
+                    <ul class="space-y-3 mb-8 relative z-10">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500"></i>
+                            <span>Desenvolvimento de Apps (iOS/Android)</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500"></i>
+                            <span>Sistemas Web Complexos</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500"></i>
+                            <span>Integrações e Automações</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- NUMBERS SECTION --- -->
+    <section class="py-16 bg-blue-600">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                <div>
+                    <div class="text-4xl font-extrabold mb-2">2022</div>
+                    <div class="text-blue-100 text-sm font-medium uppercase tracking-wider">Ano de Fundação</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-extrabold mb-2">+20</div>
+                    <div class="text-blue-100 text-sm font-medium uppercase tracking-wider">Projetos Entregues</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-extrabold mb-2">100%</div>
+                    <div class="text-blue-100 text-sm font-medium uppercase tracking-wider">Comprometimento</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-extrabold mb-2">RS</div>
+                    <div class="text-blue-100 text-sm font-medium uppercase tracking-wider">Atuação Nacional</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- ABOUT SECTION --- -->
+    <section id="sobre" class="py-24 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+
+                <!-- Image Placeholder -->
+                <div class="w-full md:w-1/2">
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-blue-600 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
+                        <div class="relative bg-slate-100 rounded-2xl p-1 overflow-hidden h-[500px] flex items-center justify-center border border-slate-200">
+
+                            <!--
+                                AQUI VAI SUA FOTO:
+                                1. Salve sua foto como 'foto-joao.jpg' (ou .png)
+                                2. Coloque na mesma pasta deste arquivo
+                            -->
+                            <img src="Imagens/Foto Fundador/João Caetano Pimentel de Oliveira.png"
+                                 alt="João Caetano - Fundador da JC Soluções"
+                                 class="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                                 onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex'">
+
+                            <!-- Fallback (aparece se a foto não carregar) -->
+                            <div id="photo-fallback" class="hidden absolute inset-0 flex-col items-center justify-center text-center p-8">
+                                <div class="w-32 h-32 bg-slate-300 rounded-full mb-6 flex items-center justify-center text-slate-500">
+                                    <i data-lucide="user" class="w-12 h-12"></i>
+                                </div>
+                                <p class="text-slate-400 italic">
+                                    Salve sua foto como <strong>foto-joao.jpg</strong> na pasta do site para ela aparecer aqui.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="w-full md:w-1/2 space-y-6">
+                    <h2 class="text-blue-600 font-bold tracking-wide uppercase text-sm">Quem Somos</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">
+                        Paixão por tecnologia,<br />foco em resultados.
+                    </h3>
+
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Olá, eu sou <strong>João Caetano Pimentel de Oliveira</strong>. A JC Soluções nasceu em novembro de 2022, fruto de uma vontade incontrolável de resolver problemas através do código.
+                    </p>
+
+                    <p class="text-slate-600 leading-relaxed">
+                        Durante anos, focamos na entrega técnica de excelência. Agora, em 2026, consolidamos nossa identidade visual para refletir a maturidade que alcançamos. Sediados em <strong>Passo Fundo - RS</strong>, atendemos clientes que buscam mais do que um prestador de serviços: buscam um parceiro tecnológico estratégico.
+                    </p>
+
+                    <div class="pt-4 border-t border-slate-100 mt-4">
+                        <div class="flex items-center gap-4">
+                            <div>
+                                <p class="text-slate-900 font-bold">João Caetano</p>
+                                <p class="text-slate-500 text-sm">Fundador & Full Stack Developer</p>
+                            </div>
+                            <div class="h-10 w-[1px] bg-slate-200"></div>
+                            <div class="flex items-center gap-2 text-slate-600 text-sm">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
+                                Passo Fundo, RS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- FOOTER --- -->
+    <footer id="contato" class="bg-slate-900 text-white pt-20 pb-10 border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4">Vamos profissionalizar o seu negócio?</h2>
+                    <p class="text-slate-400 text-lg mb-8">
+                        Seja para criar um site que vende ou um sistema que organiza sua empresa, a hora é agora.
+                    </p>
+
+                    <div class="flex flex-col gap-4">
+                        <a href="https://wa.me/5554999999999" target="_blank" class="group flex items-center justify-center gap-3 p-4 bg-green-600 hover:bg-green-700 rounded-xl transition-all shadow-lg hover:shadow-green-600/30 text-white font-bold text-center border border-green-500/50">
+                            <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            <span>Chamar no WhatsApp</span>
+                        </a>
+
+                        <a href="mailto:contato@jcsolucoes.tec.br" class="group flex items-center justify-center gap-3 p-4 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg hover:shadow-blue-600/30 text-white font-bold text-center border border-blue-500/50">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                            <span>Enviar E-mail</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white text-slate-900 p-8 rounded-2xl shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-bl-full opacity-50"></div>
+                    <form class="space-y-4 relative z-10" onsubmit="sendToWhatsapp(event)">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            Solicite um Orçamento
+                            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Via WhatsApp</span>
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Empresa</label>
+                            <input id="nome-empresa" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all" placeholder="Sua empresa" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Seu Objetivo</label>
+                            <select id="objetivo" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all">
+                                <option>Criar um Site Profissional</option>
+                                <option>Desenvolver Software/App</option>
+                                <option>Marketing e Redes Sociais</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-slate-900 hover:bg-green-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg flex items-center justify-center gap-2 group">
+                            Enviar Mensagem
+                            <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- --- ASSINATURA / COPYRIGHT --- -->
+            <div class="pt-10 border-t border-slate-800">
+                <div class="grid md:grid-cols-3 gap-8 items-center text-center md:text-left">
+
+                    <!-- Branding -->
+                    <div class="flex flex-col items-center md:items-start gap-2">
+                        <div class="flex items-center gap-3">
+                            <!-- Logo Aumentada no Rodapé (h-12 -> h-20) e textos ajustados -->
+                            <img src="Imagens/Logos da Empresa/Fundo transparente.png" alt="JC Soluções" class="h-20 w-auto object-contain brightness-0 invert opacity-70">
+                            <div class="flex flex-col text-left">
+                                <span class="font-bold text-3xl tracking-wider text-slate-200 leading-none">SOLUÇÕES</span>
+                                <span class="text-sm uppercase tracking-widest text-slate-500 font-medium leading-none">EM TECNOLOGIA</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-xs max-w-xs mt-2">
+                            Tecnologia e Inovação para negócios que pensam no futuro.
+                        </p>
+                    </div>
+
+                    <!-- Essence & Location -->
+                    <div class="flex flex-col items-center justify-center space-y-2">
+                        <div class="text-slate-400 text-sm flex items-center gap-1">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i>
+                            <span>Passo Fundo, RS - Brasil</span>
+                        </div>
+                        <div class="text-slate-500 text-xs">
+                            CNPJ: 00.000.000/0001-00
+                        </div>
+                    </div>
+
+                    <!-- Socials & Links -->
+                    <div class="flex flex-col items-center md:items-end gap-3">
+                        <div class="flex gap-4">
+                            <a href="#" class="bg-slate-800 p-2 rounded-full text-slate-400 hover:text-white hover:bg-[#E1306C] transition-all">
+                                <i data-lucide="instagram" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#" class="bg-slate-800 p-2 rounded-full text-slate-400 hover:text-white hover:bg-blue-700 transition-all">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#" class="bg-slate-800 p-2 rounded-full text-slate-400 hover:text-white hover:bg-green-600 transition-all">
+                                <i data-lucide="smartphone" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <div class="flex gap-3 text-[10px] text-slate-500 uppercase tracking-wide font-medium">
+                            <a href="#" class="hover:text-blue-400 transition-colors">Privacidade</a>
+                            <span>•</span>
+                            <a href="#" class="hover:text-blue-400 transition-colors">Termos</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Line -->
+                <div class="mt-8 pt-4 border-t border-slate-800/50 text-center">
+                    <p class="text-slate-600 text-xs">
+                        © <span id="current-year"></span> <strong>JC Soluções em Tecnologia</strong>. Todos os direitos reservados. <br /> Desenvolvido por <strong>J. Caetano</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- SCRIPTS --- -->
+    <script>
+        // Inicializar ícones Lucide
+        lucide.createIcons();
+
+        // Atualizar ano atual
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Função para enviar formulário para o WhatsApp
+        function sendToWhatsapp(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome-empresa').value;
+            const objetivo = document.getElementById('objetivo').value;
+            const numeroTelefone = "5554999999999"; // Substitua pelo número real da empresa (com DDD)
+
+            // Texto da mensagem formatado
+            const mensagem = `Olá! Sou da empresa *${nome}*.\nTenho interesse em: *${objetivo}*.\nGostaria de solicitar um orçamento.`;
+
+            // Criar link e abrir em nova aba
+            const url = `https://wa.me/${numeroTelefone}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Menu Mobile Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const navLogoText = document.getElementById('nav-logo-text');
+        const navLogoSub = document.getElementById('nav-logo-sub');
+        let isMenuOpen = false;
+
+        function updateNavColors() {
+            // Se o menu estiver aberto, FORÇAR texto escuro e ícone de fechar escuro
+            // Se estiver fechado, obedecer a lógica de scroll (topo=branco, scroll=escuro)
+            if (isMenuOpen) {
+                btn.classList.replace('text-white', 'text-slate-800');
+                navLogoText.classList.replace('text-white', 'text-slate-900');
+                // Mantém ciano
+                navLogoSub.classList.replace('text-cyan-400', 'text-cyan-600');
+            } else {
+                // Voltar ao padrão dependendo do scroll
+                if (window.scrollY > 20) {
+                    btn.classList.replace('text-white', 'text-slate-800');
+                    navLogoText.classList.replace('text-white', 'text-slate-900');
+                    // Texto escurece no fundo branco para leitura
+                    navLogoSub.classList.replace('text-cyan-400', 'text-cyan-600');
+                } else {
+                    btn.classList.replace('text-slate-800', 'text-white');
+                    navLogoText.classList.replace('text-slate-900', 'text-white');
+                    // Texto volta a ser ciano vibrante no fundo escuro
+                    navLogoSub.classList.replace('text-cyan-600', 'text-cyan-400');
+                }
+            }
+        }
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                // Abrir Menu
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+
+                // Animar links de entrada
+                mobileLinks.forEach(link => {
+                    link.classList.remove('translate-y-4');
+                });
+
+                // Trocar ícone para X
+                icon.setAttribute('data-lucide', 'x');
+
+                // Travar Scroll do Body
+                document.body.style.overflow = 'hidden';
+
+            } else {
+                // Fechar Menu
+                menu.classList.add('opacity-0', 'pointer-events-none');
+
+                // Resetar animação links
+                mobileLinks.forEach(link => {
+                    link.classList.add('translate-y-4');
+                });
+
+                // Voltar ícone para Menu
+                icon.setAttribute('data-lucide', 'menu');
+
+                // Destravar Scroll
+                document.body.style.overflow = 'auto';
+            }
+
+            updateNavColors();
+            lucide.createIcons();
+        }
+
+        btn.addEventListener('click', toggleMenu);
+
+        // Fechar menu ao clicar em link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
+        });
+
+        // Scroll Effect Navbar
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('nav-links');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                // Scrolled State (Navbar Branca)
+                navbar.classList.remove('bg-transparent', 'py-4', 'md:py-6');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+                navLinks.classList.replace('text-slate-300', 'text-slate-600');
+            } else {
+                // Top State (Navbar Transparente)
+                navbar.classList.add('bg-transparent', 'py-4', 'md:py-6');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+                navLinks.classList.replace('text-slate-600', 'text-slate-300');
+            }
+            // Atualizar cores do logo/botão baseado no scroll (mas respeitando se o menu tá aberto)
+            updateNavColors();
+        });
+    </script>
+</body>
+</html>
