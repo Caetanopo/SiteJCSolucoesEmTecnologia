@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JC Soluções em Tecnologia</title>
 
+    <!-- Favicon (Logo na aba do navegador) -->
+    <link rel="icon" href="Imagens/Logos da Empresa/Fundo transparente.png" type="image/png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -77,7 +80,7 @@
             <!-- CTA Button -->
             <div class="hidden md:block">
                 <a href="#contato" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/30 text-sm inline-block">
-                    Falar com Especialista
+                    Falar com um Especialista
                 </a>
             </div>
 
@@ -312,13 +315,13 @@
                         <div class="relative bg-slate-100 rounded-2xl p-1 overflow-hidden h-[500px] flex items-center justify-center border border-slate-200">
 
                             <!--
-                                AQUI VAI SUA FOTO:
-                                1. Salve sua foto como 'foto-joao.jpg' (ou .png)
-                                2. Coloque na mesma pasta deste arquivo
+                                FOTO ATUALIZADA:
+                                Agora está apontando para o arquivo que você enviou.
+                                Adicionei 'object-top' para garantir que seu rosto apareça bem no enquadramento.
                             -->
                             <img src="Imagens/Foto Fundador/João Caetano Pimentel de Oliveira.png"
                                  alt="João Caetano - Fundador da JC Soluções"
-                                 class="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                                 class="w-full h-full object-cover object-top rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
                                  onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex'">
 
                             <!-- Fallback (aparece se a foto não carregar) -->
@@ -327,7 +330,7 @@
                                     <i data-lucide="user" class="w-12 h-12"></i>
                                 </div>
                                 <p class="text-slate-400 italic">
-                                    Salve sua foto como <strong>foto-joao.jpg</strong> na pasta do site para ela aparecer aqui.
+                                    Certifique-se de que o arquivo <strong>"João Caetano Pimentel de Oliveira.png"</strong> está na mesma pasta do site.
                                 </p>
                             </div>
 
@@ -372,51 +375,64 @@
     <footer id="contato" class="bg-slate-900 text-white pt-20 pb-10 border-t border-slate-800">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-                <div>
-                    <h2 class="text-3xl font-bold mb-4">Vamos profissionalizar o seu negócio?</h2>
-                    <p class="text-slate-400 text-lg mb-8">
-                        Seja para criar um site que vende ou um sistema que organiza sua empresa, a hora é agora.
-                    </p>
 
-                    <div class="flex flex-col gap-4">
-                        <a href="https://wa.me/5554999999999" target="_blank" class="group flex items-center justify-center gap-3 p-4 bg-green-600 hover:bg-green-700 rounded-xl transition-all shadow-lg hover:shadow-green-600/30 text-white font-bold text-center border border-green-500/50">
-                            <i data-lucide="message-circle" class="w-6 h-6"></i>
-                            <span>Chamar no WhatsApp</span>
-                        </a>
+                <!-- COLUNA DA ESQUERDA: Texto + Formulário -->
+                <div class="flex flex-col gap-8">
+                    <!-- Texto (Fica em cima do quadrado branco) -->
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4">Vamos profissionalizar o seu negócio?</h2>
+                        <p class="text-slate-400 text-lg">
+                            Seja para criar um site que vende ou um sistema que organiza sua empresa, a hora é agora.
+                        </p>
+                    </div>
 
-                        <a href="mailto:contato@jcsolucoes.tec.br" class="group flex items-center justify-center gap-3 p-4 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg hover:shadow-blue-600/30 text-white font-bold text-center border border-blue-500/50">
-                            <i data-lucide="mail" class="w-6 h-6"></i>
-                            <span>Enviar E-mail</span>
-                        </a>
+                    <!-- Formulário (Movido para a esquerda, abaixo do texto) -->
+                    <div class="bg-white text-slate-900 p-8 rounded-2xl shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-bl-full opacity-50"></div>
+                        <form class="space-y-4 relative z-10" onsubmit="sendToWhatsapp(event)">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                                Solicite um Orçamento
+                                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Via WhatsApp</span>
+                            </h3>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Empresa</label>
+                                <input id="nome-empresa" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all" placeholder="Sua empresa" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Seu Objetivo</label>
+                                <select id="objetivo" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all">
+                                    <option>Criar um Site Profissional</option>
+                                    <option>Desenvolver Software/App</option>
+                                    <option>Marketing e Redes Sociais</option>
+                                    <option>Outros</option>
+                                </select>
+                            </div>
+                            <button class="w-full bg-slate-900 hover:bg-green-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg flex items-center justify-center gap-2 group">
+                                Enviar Mensagem
+                                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
 
-                <div class="bg-white text-slate-900 p-8 rounded-2xl shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-bl-full opacity-50"></div>
-                    <form class="space-y-4 relative z-10" onsubmit="sendToWhatsapp(event)">
-                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                            Solicite um Orçamento
-                            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Via WhatsApp</span>
-                        </h3>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Empresa</label>
-                            <input id="nome-empresa" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all" placeholder="Sua empresa" required>
+                <!-- COLUNA DA DIREITA: Botões de Contato -->
+                <div class="flex flex-col gap-6 justify-center h-full">
+                    <div class="p-6 border border-slate-800 rounded-2xl bg-slate-800/30">
+                        <p class="text-slate-400 mb-6 text-center">Prefere falar diretamente?</p>
+                        <div class="flex flex-col gap-4">
+                            <a href="https://wa.me/5554999999999" target="_blank" class="group flex items-center justify-center gap-3 p-4 bg-green-600 hover:bg-green-700 rounded-xl transition-all shadow-lg hover:shadow-green-600/30 text-white font-bold text-center border border-green-500/50">
+                                <i data-lucide="message-circle" class="w-6 h-6"></i>
+                                <span>Chamar no WhatsApp</span>
+                            </a>
+
+                            <a href="mailto:contato@jcsolucoes.tec.br" class="group flex items-center justify-center gap-3 p-4 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg hover:shadow-blue-600/30 text-white font-bold text-center border border-blue-500/50">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                                <span>Enviar E-mail</span>
+                            </a>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Seu Objetivo</label>
-                            <select id="objetivo" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all">
-                                <option>Criar um Site Profissional</option>
-                                <option>Desenvolver Software/App</option>
-                                <option>Marketing e Redes Sociais</option>
-                                <option>Outros</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-slate-900 hover:bg-green-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg flex items-center justify-center gap-2 group">
-                            Enviar Mensagem
-                            <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        </button>
-                    </form>
+                    </div>
                 </div>
+
             </div>
 
             <!-- --- ASSINATURA / COPYRIGHT --- -->
@@ -495,7 +511,7 @@
 
             const nome = document.getElementById('nome-empresa').value;
             const objetivo = document.getElementById('objetivo').value;
-            const numeroTelefone = "5554999999999"; // Substitua pelo número real da empresa (com DDD)
+            const numeroTelefone = "+5554991678057"; // Substitua pelo número real da empresa (com DDD)
 
             // Texto da mensagem formatado
             const mensagem = `Olá! Sou da empresa *${nome}*.\nTenho interesse em: *${objetivo}*.\nGostaria de solicitar um orçamento.`;
@@ -528,12 +544,10 @@
                     btn.classList.replace('text-white', 'text-slate-800');
                     navLogoText.classList.replace('text-white', 'text-slate-900');
                     // Texto escurece no fundo branco para leitura
-                    navLogoSub.classList.replace('text-cyan-400', 'text-cyan-600');
                 } else {
                     btn.classList.replace('text-slate-800', 'text-white');
                     navLogoText.classList.replace('text-slate-900', 'text-white');
                     // Texto volta a ser ciano vibrante no fundo escuro
-                    navLogoSub.classList.replace('text-cyan-600', 'text-cyan-400');
                 }
             }
         }
