@@ -374,7 +374,6 @@
                         <h4 class="text-lg font-bold text-slate-900">FTZ Futzinho FC</h4>
                     </div>
                 </div>-->
-
                 <!-- Cliente 4: Dolci Luna -->
                 <!--<div class="group relative">
                     <div class="bg-slate-50 rounded-2xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 border border-slate-100 aspect-video relative">-->
@@ -649,9 +648,12 @@
                             </a>
                         </div>
                         <div class="flex gap-3 text-[10px] text-slate-500 uppercase tracking-wide font-medium">
-                            <a href="#" class="hover:text-blue-400 transition-colors">Privacidade</a>
+                            <a href="#" onclick="openPrivacyModal(event)" class="hover:text-blue-400 transition-colors">Privacidade</a>
                             <span>•</span>
                             <a href="#" class="hover:text-blue-400 transition-colors">Termos</a>
+                            <span>•</span>
+                            <!-- Botão para reabrir o banner de cookies -->
+                            <a href="#" onclick="resetCookies(event)" class="hover:text-blue-400 transition-colors">Cookies</a>
                         </div>
                     </div>
 
@@ -667,6 +669,65 @@
         </div>
     </footer>
 
+    <!-- --- COOKIE BANNER (LGPD) --- -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-[60] p-6 transform translate-y-full transition-transform duration-500 hidden flex-col md:flex-row items-center justify-between gap-4">
+        <div class="max-w-4xl">
+            <h3 class="text-slate-900 font-bold text-lg mb-1">Valorizamos sua privacidade</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Utilizamos cookies para melhorar sua experiência de navegação e analisar nosso tráfego.
+                Ao clicar em "Aceitar", você concorda com o uso de cookies conforme nossa
+                <a href="#" onclick="openPrivacyModal(event)" class="text-blue-600 underline hover:text-blue-800">Política de Privacidade</a>.
+            </p>
+        </div>
+        <div class="flex gap-3 shrink-0">
+            <button onclick="acceptCookies()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-lg shadow-blue-600/20 text-sm">
+                Aceitar
+            </button>
+            <button onclick="rejectCookies()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-6 rounded-lg transition-colors text-sm">
+                Recusar
+            </button>
+        </div>
+    </div>
+
+    <!-- --- PRIVACY MODAL (Janela de Política) --- -->
+    <div id="privacy-modal" class="fixed inset-0 z-[70] bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto p-8 relative">
+            <button onclick="closePrivacyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Política de Privacidade</h2>
+
+            <div class="prose prose-slate text-sm text-slate-600 space-y-4">
+                <p><strong>Última atualização: Fevereiro de 2026</strong></p>
+                <p>A JC Soluções em Tecnologia valoriza a privacidade de seus usuários. Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais.</p>
+
+                <h4 class="text-slate-800 font-bold mt-4">1. Coleta de Dados</h4>
+                <p>Coletamos apenas as informações necessárias para o funcionamento do site e para entrar em contato com você, como nome, e-mail e telefone, quando fornecidos voluntariamente através de nossos formulários.</p>
+
+                <h4 class="text-slate-800 font-bold mt-4">2. Uso das Informações</h4>
+                <p>As informações coletadas são utilizadas exclusivamente para:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Responder a solicitações de orçamento e contato;</li>
+                    <li>Melhorar a experiência do usuário em nosso site;</li>
+                    <li>Fins estatísticos anônimos.</li>
+                </ul>
+
+                <h4 class="text-slate-800 font-bold mt-4">3. Cookies</h4>
+                <p>Utilizamos cookies para armazenar preferências básicas, como a aceitação desta política. Você pode desativar os cookies nas configurações do seu navegador.</p>
+
+                <h4 class="text-slate-800 font-bold mt-4">4. Contato</h4>
+                <p>Para questões relacionadas à privacidade, entre em contato pelo e-mail: <strong>jcsolucoesemtecnologia@gmail.com</strong>.</p>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-100 flex justify-end">
+                <button onclick="closePrivacyModal()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded-lg transition-colors">
+                    Entendi
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- --- SCRIPTS --- -->
     <script>
         // Inicializar ícones Lucide
@@ -674,6 +735,77 @@
 
         // Atualizar ano atual
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- LÓGICA DO COOKIE BANNER ---
+        const cookieBanner = document.getElementById('cookie-banner');
+
+        // Verifica se o usuário já aceitou/recusou antes
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('jc_cookie_consent');
+            if (!consent) {
+                // Se não tiver decisão salva, mostra o banner após 1 segundo
+                cookieBanner.classList.remove('hidden');
+                // Pequeno delay para permitir a transição CSS funcionar (display: none não anima)
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 100);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('jc_cookie_consent', 'accepted');
+            closeBanner();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('jc_cookie_consent', 'rejected');
+            closeBanner();
+        }
+
+        function closeBanner() {
+            cookieBanner.classList.add('translate-y-full');
+            setTimeout(() => {
+                cookieBanner.classList.add('hidden');
+            }, 500); // Espera a animação terminar para esconder
+        }
+
+        // Função para resetar e mostrar o banner novamente (para testes ou mudança de opinião)
+        function resetCookies(e) {
+            if (e) e.preventDefault();
+            localStorage.removeItem('jc_cookie_consent');
+            cookieBanner.classList.remove('hidden');
+            setTimeout(() => {
+                cookieBanner.classList.remove('translate-y-full');
+            }, 100);
+        }
+
+        // Inicia a verificação ao carregar a página
+        window.addEventListener('load', checkCookieConsent);
+
+
+        // --- LÓGICA DO MODAL DE PRIVACIDADE ---
+        const privacyModal = document.getElementById('privacy-modal');
+
+        function openPrivacyModal(e) {
+            if (e) e.preventDefault();
+            privacyModal.classList.remove('hidden');
+            privacyModal.classList.add('flex');
+            // Re-renderizar ícones dentro do modal se necessário
+            lucide.createIcons();
+        }
+
+        function closePrivacyModal() {
+            privacyModal.classList.add('hidden');
+            privacyModal.classList.remove('flex');
+        }
+
+        // Fechar modal ao clicar fora
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                closePrivacyModal();
+            }
+        });
+
 
         // Função inteligente para o botão de E-mail (Regra de Negócio)
         function handleEmailClick(event) {
@@ -723,18 +855,17 @@
             if (isMenuOpen) {
                 btn.classList.replace('text-white', 'text-slate-800');
                 navLogoText.classList.replace('text-white', 'text-slate-900');
-                // Mantém ciano
-                navLogoSub.classList.replace('text-cyan-400', 'text-cyan-600');
+                navLogoSub.classList.replace('text-blue-400', 'text-blue-600');
             } else {
                 // Voltar ao padrão dependendo do scroll
                 if (window.scrollY > 20) {
                     btn.classList.replace('text-white', 'text-slate-800');
                     navLogoText.classList.replace('text-white', 'text-slate-900');
-                    // Texto escurece no fundo branco para leitura
+                    navLogoSub.classList.replace('text-blue-400', 'text-blue-600');
                 } else {
                     btn.classList.replace('text-slate-800', 'text-white');
                     navLogoText.classList.replace('text-slate-900', 'text-white');
-                    // Texto volta a ser ciano vibrante no fundo escuro
+                    navLogoSub.classList.replace('text-blue-600', 'text-blue-400');
                 }
             }
         }
