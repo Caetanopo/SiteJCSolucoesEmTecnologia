@@ -1,16 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMCQF307F0"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-PMCQF307F0');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JC Soluções em Tecnologia</title>
@@ -90,6 +80,11 @@
                     <i data-lucide="calculator" class="w-4 h-4"></i> Simulador
                 </a>
 
+                <!-- Link para o Painel de Progresso -->
+                <a href="painel.html?p=admin" class="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-bold transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Painel de Progresso
+                </a>
+
                 <a href="#sobre" class="hover:text-blue-500 transition-colors">A Empresa</a>
                 <a href="#contato" class="hover:text-blue-500 transition-colors">Contato</a>
             </div>
@@ -118,9 +113,14 @@
             <i data-lucide="calculator" class="w-6 h-6"></i> Simular Orçamento
         </a>
 
-        <a href="#sobre" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-75">A Empresa</a>
-        <a href="#contato" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-100">Contato</a>
-        <a href="#contato" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-blue-600/20 mt-4 mobile-link transform translate-y-4 transition-transform duration-300 delay-150">
+        <!-- Link Mobile Painel de Progresso -->
+        <a href="painel.html?p=admin" class="text-2xl font-bold text-indigo-600 hover:text-indigo-800 mobile-link transform translate-y-4 transition-transform duration-300 delay-100 flex items-center gap-2">
+            <i data-lucide="layout-dashboard" class="w-6 h-6"></i> Painel de Progresso
+        </a>
+
+        <a href="#sobre" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-125">A Empresa</a>
+        <a href="#contato" class="text-2xl font-bold text-slate-800 hover:text-blue-600 mobile-link transform translate-y-4 transition-transform duration-300 delay-150">Contato</a>
+        <a href="#contato" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-blue-600/20 mt-4 mobile-link transform translate-y-4 transition-transform duration-300 delay-200">
             Solicitar Orçamento
         </a>
     </div>
@@ -319,12 +319,14 @@
                 <!-- Cliente 1: ASOF -->
                 <div class="group relative">
                     <div class="bg-slate-50 rounded-2xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 border border-slate-100 aspect-video relative">
-                        <!-- Espaço para Logo -->
-                        <div class="absolute inset-0 flex items-center justify-center bg-white p-8">
-                            <!-- LOGO AQUI: Salve como Imagens/Clientes/asof.png -->
-                            <img src="Imagens/Clientes/AsOf.png" alt="Logo ASOF" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                        <!-- Espaço para Logo - Full Cover + Object Top -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-white">
+                            <!-- CORREÇÃO: object-cover para preencher, object-top para alinhar topo, sem zoom no hover -->
+                            <img src="Imagens/Clientes/asof.png" alt="Logo ASOF" class="w-full h-full object-cover object-top transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
                             <!-- Fallback Icon -->
-                            <i data-lucide="shield" class="hidden w-12 h-12 text-blue-900 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="hidden absolute inset-0 flex items-center justify-center text-blue-900">
+                                <i data-lucide="shield" class="w-12 h-12"></i>
+                            </div>
                         </div>
 
                         <!-- Overlay com Botões -->
@@ -346,12 +348,14 @@
                 <!-- Cliente 2: Voz da Segurança -->
                 <div class="group relative">
                     <div class="bg-slate-50 rounded-2xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 border border-slate-100 aspect-video relative">
-                        <!-- Espaço para Logo -->
-                        <div class="absolute inset-0 flex items-center justify-center bg-white p-8">
-                            <!-- LOGO AQUI: Salve como Imagens/Clientes/voz.png -->
-                            <img src="Imagens/Clientes/Voz da Segurança.png" alt="Logo Voz da Segurança" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                        <!-- Espaço para Logo - Full Cover + Object Top -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-white">
+                            <!-- CORREÇÃO: object-cover para preencher, object-top para alinhar topo, sem zoom no hover -->
+                            <img src="Imagens/Clientes/Voz da Segurança.png" alt="Logo Voz da Segurança" class="w-full h-full object-cover object-top transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
                             <!-- Fallback Icon -->
-                            <i data-lucide="mic" class="hidden w-12 h-12 text-emerald-600 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="hidden absolute inset-0 flex items-center justify-center text-emerald-600">
+                                <i data-lucide="mic" class="w-12 h-12"></i>
+                            </div>
                         </div>
 
                         <!-- Overlay com Botões -->
@@ -370,6 +374,16 @@
                     </div>
                 </div>
 
+                <!-- Cliente 3, 4 e 5: Comentados conforme seu código original -->
+                <!-- Cliente 3: FTZ FC -->
+                <!--<div class="group relative">
+                    <div class="bg-slate-50 rounded-2xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 border border-slate-100 aspect-video relative">
+                        <div class="absolute inset-0 flex items-center justify-center bg-white p-8">
+                            <img src="Imagens/Clientes/ftz.png" alt="Logo FTZ FC" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                            <i data-lucide="trophy" class="hidden w-12 h-12 text-yellow-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
+                         ...
+                </div>-->
                 <!-- Card CTA: Sua Empresa Aqui (Mantido como Convite) -->
                 <a href="#contato" class="group cursor-pointer border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center aspect-video hover:border-blue-400 hover:bg-blue-50/50 transition-all">
                     <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors mb-3">
@@ -417,11 +431,7 @@
                         <div class="absolute inset-0 bg-blue-600 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
                         <div class="relative bg-slate-100 rounded-2xl p-1 overflow-hidden h-[500px] flex items-center justify-center border border-slate-200">
 
-                            <!--
-                                FOTO ATUALIZADA:
-                                Agora está apontando para o arquivo que você enviou.
-                                Adicionei 'object-top' para garantir que seu rosto apareça bem no enquadramento.
-                            -->
+                            <!-- FOTO ATUALIZADA -->
                             <img src="Imagens/Foto Fundador/João Caetano Pimentel de Oliveira.png"
                                  alt="João Caetano - Fundador da JC Soluções"
                                  class="w-full h-full object-cover object-top rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
@@ -481,7 +491,7 @@
 
                 <!-- COLUNA DA ESQUERDA: Texto + Formulário -->
                 <div class="flex flex-col gap-8">
-                    <!-- Texto (Fica em cima do quadrado branco) -->
+                    <!-- Texto -->
                     <div>
                         <h2 class="text-3xl font-bold mb-4">Vamos profissionalizar o seu negócio?</h2>
                         <p class="text-slate-400 text-lg">
@@ -489,7 +499,7 @@
                         </p>
                     </div>
 
-                    <!-- Formulário (Movido para a esquerda, abaixo do texto) -->
+                    <!-- Formulário -->
                     <div class="bg-white text-slate-900 p-8 rounded-2xl shadow-xl relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-bl-full opacity-50"></div>
                         <form class="space-y-4 relative z-10" onsubmit="sendToWhatsapp(event)">
@@ -528,14 +538,12 @@
                                 <span>Chamar no WhatsApp</span>
                             </a>
 
-                            <!-- GRUPO DE E-MAIL (Com visualização para cópia) -->
+                            <!-- GRUPO DE E-MAIL -->
                             <div class="flex flex-col items-center gap-2">
-                                <!-- Botão Atualizado com Lógica Inteligente -->
                                 <a href="#" onclick="handleEmailClick(event)" class="w-full group flex items-center justify-center gap-3 p-4 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg hover:shadow-blue-600/30 text-white font-bold text-center border border-blue-500/50">
                                     <i data-lucide="mail" class="w-6 h-6"></i>
                                     <span>Enviar E-mail</span>
                                 </a>
-                                <!-- Texto pequeno para quem usa Gmail no PC copiar -->
                                 <span class="text-xs text-slate-500 font-mono select-all hover:text-blue-500 transition-colors cursor-pointer" title="Clique para copiar (manualmente)" onclick="navigator.clipboard.writeText('jcsolucoesemtecnologia@gmail.com'); alert('E-mail copiado para a área de transferência!');">
                                     jcsolucoesemtecnologia@gmail.com
                                 </span>
@@ -553,7 +561,6 @@
                     <!-- Branding -->
                     <div class="flex flex-col items-center md:items-start gap-2">
                         <div class="flex items-center gap-3">
-                            <!-- Logo Aumentada no Rodapé (h-12 -> h-20) e textos ajustados -->
                             <img src="Imagens/Logos da Empresa/Fundo transparente.png" alt="JC Soluções" class="h-20 w-auto object-contain brightness-0 invert opacity-70">
                             <div class="flex flex-col text-left">
                                 <span class="font-bold text-3xl tracking-wider text-slate-200 leading-none">SOLUÇÕES</span>
@@ -594,7 +601,6 @@
                             <span>•</span>
                             <a href="#" class="hover:text-blue-400 transition-colors">Termos</a>
                             <span>•</span>
-                            <!-- Botão para reabrir o banner de cookies -->
                             <a href="#" onclick="resetCookies(event)" class="hover:text-blue-400 transition-colors">Cookies</a>
                         </div>
                     </div>
@@ -681,13 +687,10 @@
         // --- LÓGICA DO COOKIE BANNER ---
         const cookieBanner = document.getElementById('cookie-banner');
 
-        // Verifica se o usuário já aceitou/recusou antes
         function checkCookieConsent() {
             const consent = localStorage.getItem('jc_cookie_consent');
             if (!consent) {
-                // Se não tiver decisão salva, mostra o banner após 1 segundo
                 cookieBanner.classList.remove('hidden');
-                // Pequeno delay para permitir a transição CSS funcionar (display: none não anima)
                 setTimeout(() => {
                     cookieBanner.classList.remove('translate-y-full');
                 }, 100);
@@ -708,10 +711,9 @@
             cookieBanner.classList.add('translate-y-full');
             setTimeout(() => {
                 cookieBanner.classList.add('hidden');
-            }, 500); // Espera a animação terminar para esconder
+            }, 500);
         }
 
-        // Função para resetar e mostrar o banner novamente (para testes ou mudança de opinião)
         function resetCookies(e) {
             if (e) e.preventDefault();
             localStorage.removeItem('jc_cookie_consent');
@@ -721,9 +723,7 @@
             }, 100);
         }
 
-        // Inicia a verificação ao carregar a página
         window.addEventListener('load', checkCookieConsent);
-
 
         // --- LÓGICA DO MODAL DE PRIVACIDADE ---
         const privacyModal = document.getElementById('privacy-modal');
@@ -732,7 +732,6 @@
             if (e) e.preventDefault();
             privacyModal.classList.remove('hidden');
             privacyModal.classList.add('flex');
-            // Re-renderizar ícones dentro do modal se necessário
             lucide.createIcons();
         }
 
@@ -741,27 +740,21 @@
             privacyModal.classList.remove('flex');
         }
 
-        // Fechar modal ao clicar fora
         privacyModal.addEventListener('click', (e) => {
             if (e.target === privacyModal) {
                 closePrivacyModal();
             }
         });
 
-
-        // Função inteligente para o botão de E-mail (Regra de Negócio)
+        // Função inteligente para o botão de E-mail
         function handleEmailClick(event) {
             event.preventDefault();
             const email = "jcsolucoesemtecnologia@gmail.com";
-
-            // Detecção simples de dispositivo móvel
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
             if (isMobile) {
-                // No celular: Abre o app nativo (mailto) que permite escolher Gmail, Outlook, etc.
                 window.location.href = `mailto:${email}`;
             } else {
-                // No Desktop: Abre o Gmail direto no navegador em uma nova aba
                 window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`, '_blank');
             }
         }
@@ -772,12 +765,10 @@
 
             const nome = document.getElementById('nome-empresa').value;
             const objetivo = document.getElementById('objetivo').value;
-            const numeroTelefone = "+5554991678057"; // Substitua pelo número real da empresa (com DDD)
+            const numeroTelefone = "+5554991678057";
 
-            // Texto da mensagem formatado
             const mensagem = `Olá! Sou da empresa *${nome}*.\nTenho interesse em: *${objetivo}*.\nGostaria de solicitar um orçamento.`;
 
-            // Criar link e abrir em nova aba
             const url = `https://wa.me/${numeroTelefone}?text=${encodeURIComponent(mensagem)}`;
             window.open(url, '_blank');
         }
@@ -792,22 +783,19 @@
         let isMenuOpen = false;
 
         function updateNavColors() {
-            // Se o menu estiver aberto, FORÇAR texto escuro e ícone de fechar escuro
-            // Se estiver fechado, obedecer a lógica de scroll (topo=branco, scroll=escuro)
             if (isMenuOpen) {
                 btn.classList.replace('text-white', 'text-slate-800');
                 navLogoText.classList.replace('text-white', 'text-slate-900');
                 navLogoSub.classList.replace('text-blue-400', 'text-blue-600');
             } else {
-                // Voltar ao padrão dependendo do scroll
                 if (window.scrollY > 20) {
                     btn.classList.replace('text-white', 'text-slate-800');
                     navLogoText.classList.replace('text-white', 'text-slate-900');
-                    navLogoSub.classList.replace('text-blue-400', 'text-blue-600');
+                    navLogoSub.classList.replace('text-cyan-400', 'text-cyan-600');
                 } else {
                     btn.classList.replace('text-slate-800', 'text-white');
                     navLogoText.classList.replace('text-slate-900', 'text-white');
-                    navLogoSub.classList.replace('text-blue-600', 'text-blue-400');
+                    navLogoSub.classList.replace('text-cyan-600', 'text-cyan-400');
                 }
             }
         }
@@ -815,66 +803,41 @@
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
-                // Abrir Menu
                 menu.classList.remove('opacity-0', 'pointer-events-none');
-
-                // Animar links de entrada
-                mobileLinks.forEach(link => {
-                    link.classList.remove('translate-y-4');
-                });
-
-                // Trocar ícone para X
+                mobileLinks.forEach(link => link.classList.remove('translate-y-4'));
                 icon.setAttribute('data-lucide', 'x');
-
-                // Travar Scroll do Body
                 document.body.style.overflow = 'hidden';
-
             } else {
-                // Fechar Menu
                 menu.classList.add('opacity-0', 'pointer-events-none');
-
-                // Resetar animação links
-                mobileLinks.forEach(link => {
-                    link.classList.add('translate-y-4');
-                });
-
-                // Voltar ícone para Menu
+                mobileLinks.forEach(link => link.classList.add('translate-y-4'));
                 icon.setAttribute('data-lucide', 'menu');
-
-                // Destravar Scroll
                 document.body.style.overflow = 'auto';
             }
-
             updateNavColors();
             lucide.createIcons();
         }
 
         btn.addEventListener('click', toggleMenu);
 
-        // Fechar menu ao clicar em link
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (isMenuOpen) toggleMenu();
             });
         });
 
-        // Scroll Effect Navbar
         const navbar = document.getElementById('navbar');
         const navLinks = document.getElementById('nav-links');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
-                // Scrolled State (Navbar Branca)
                 navbar.classList.remove('bg-transparent', 'py-4', 'md:py-6');
                 navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
                 navLinks.classList.replace('text-slate-300', 'text-slate-600');
             } else {
-                // Top State (Navbar Transparente)
                 navbar.classList.add('bg-transparent', 'py-4', 'md:py-6');
                 navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
                 navLinks.classList.replace('text-slate-600', 'text-slate-300');
             }
-            // Atualizar cores do logo/botão baseado no scroll (mas respeitando se o menu tá aberto)
             updateNavColors();
         });
     </script>

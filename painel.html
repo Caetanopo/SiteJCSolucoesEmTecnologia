@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JC Soluções - Painel de Transparência</title>
+
+    <!-- LOGO LUGAR 1: Ícone do Separador (Favicon) -->
+    <link rel="icon" type="image/png" href="Imagens/Logos da Empresa/Fundo transparente.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .progress-bar {
+            transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .status-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .admin-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+            .admin-input:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+            }
+
+        .login-card {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Cabeçalho -->
+    <header class="py-6 px-4 border-b border-slate-800 glass sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <!-- LOGO LUGAR 2: Cabeçalho -->
+                <div class="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center p-2 border border-slate-700 shadow-inner overflow-hidden">
+                    <img src="Imagens/Logos da Empresa/1.png" alt="JC Soluções"
+                         onerror="this.src='https://ui-avatars.com/api/?name=JC&background=2563eb&color=fff&bold=true'"
+                         class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-tight leading-none uppercase">JC Soluções</h1>
+                    <p class="text-[10px] text-blue-400 uppercase tracking-[0.2em] font-bold">Insights de Desenvolvimento</p>
+                </div>
+            </div>
+            <div id="auth-status-badge" class="hidden md:block text-[10px] font-bold px-4 py-1.5 bg-slate-800/50 rounded-full border border-slate-700 text-slate-400 uppercase tracking-widest">
+                Conectando...
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-12">
+        <section id="welcome-msg" class="mb-12">
+            <h2 id="page-title" class="text-4xl font-black mb-3 italic tracking-tighter">Estado do Projeto</h2>
+            <p id="page-subtitle" class="text-slate-400">Acompanhamento em tempo real via infraestrutura JC Soluções.</p>
+        </section>
+
+        <!-- Contentor Principal -->
+        <div id="main-content" class="min-h-[400px] flex flex-col justify-center">
+            <!-- Loader inicial -->
+            <div id="initial-loader" class="flex flex-col items-center justify-center p-20 text-slate-500">
+                <i class="fas fa-spinner fa-spin text-4xl mb-4 text-blue-500"></i>
+                <p class="uppercase text-xs font-bold tracking-widest">Sincronizando Cloud JC...</p>
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <footer class="mt-24 text-center border-t border-slate-800 pt-10">
+            <div class="flex flex-col items-center gap-6">
+                <!-- LOGO LUGAR 3: Rodapé -->
+                <div class="relative group">
+                    <img src="Imagens/Logos da Empresa/1.png" alt="JC Logo"
+                         onerror="this.style.opacity='0.1'"
+                         class="w-12 opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                </div>
+
+                <a href="https://wa.me/5554991488595" id="whatsapp-link" target="_blank" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-black text-sm transition-all transform hover:scale-105 shadow-2xl shadow-blue-600/30 text-white font-bold">
+                    SUPORTE WHATSAPP
+                </a>
+                <p class="text-[10px] text-slate-600 uppercase font-black tracking-widest">JC Soluções em Tecnologia © 2026</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Firebase e Lógica -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, doc, onSnapshot, setDoc, getDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Configuração Firebase do João
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcgjoCXsCFYzozwKI2GFF7VGNaVVmPDr4",
+            authDomain: "paineldeprogressojc.firebaseapp.com",
+            projectId: "paineldeprogressojc",
+            storageBucket: "paineldeprogressojc.firebasestorage.app",
+            messagingSenderId: "69570697407",
+            appId: "1:69570697407:web:efb72e378641f68e500e0a",
+            measurementId: "G-VLFSR7RS6Q"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = 'jc-solucoes-dashboard';
+
+        // Inicialização com Auth Anônima
+        signInAnonymously(auth).then(() => {
+            const badge = document.getElementById('auth-status-badge');
+            if (badge) {
+                badge.innerText = "JC Cloud Ativa";
+                badge.classList.replace('text-slate-400', 'text-green-500');
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('p');
+
+            if (mode === 'admin') {
+                renderLoginScreen();
+            } else if (mode) {
+                setupClient(mode);
+            } else {
+                renderError("Link Inválido", "Por favor, utilize o link enviado pelo seu desenvolvedor.");
+            }
+        }).catch(err => {
+            renderError("Erro de Conexão", "Não foi possível conectar ao servidor. Verifique sua internet.");
+        });
+
+        // --- TELA DE LOGIN PERSONALIZADA ---
+        function renderLoginScreen() {
+            const content = document.getElementById('main-content');
+            content.innerHTML = `
+                    <div class="max-w-md mx-auto w-full login-card">
+                        <div class="glass p-10 rounded-[2.5rem] border border-slate-700/50 shadow-2xl">
+                            <div class="text-center mb-8">
+                                <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-500/20">
+                                    <i class="fas fa-shield-halved text-2xl text-blue-500"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-white italic tracking-tighter">Acesso Restrito</h3>
+                                <p class="text-slate-400 text-sm mt-1">Identifique-se para gerenciar os projetos.</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="relative">
+                                    <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                                    <input type="password" id="admin-pass" class="admin-input pl-11" placeholder="Palavra-passe mestra">
+                                </div>
+                                <button id="btn-login" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-600/20 transition-all active:scale-95 text-white">
+                                    Entrar no Painel
+                                </button>
+                            </div>
+
+                            <div id="login-error" class="hidden mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs text-center font-bold">
+                                Credenciais inválidas. Tente novamente.
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            document.getElementById('btn-login').addEventListener('click', () => {
+                const pass = document.getElementById('admin-pass').value;
+                if (pass === "jc2026") {
+                    setupAdmin();
+                } else {
+                    const err = document.getElementById('login-error');
+                    err.classList.remove('hidden');
+                    document.getElementById('admin-pass').value = '';
+                }
+            });
+
+            document.getElementById('admin-pass').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') document.getElementById('btn-login').click();
+            });
+        }
+
+        // --- VISÃO DO CLIENTE ---
+        function setupClient(projectId) {
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'projects', projectId);
+            onSnapshot(docRef, (snap) => {
+                if (snap.exists()) {
+                    renderClientView(snap.data());
+                } else {
+                    renderError("Projeto não Iniciado", "Aguardando o gestor inicializar os dados deste software.");
+                }
+            });
+        }
+
+        function renderClientView(p) {
+            const content = document.getElementById('main-content');
+            content.innerHTML = `
+                    <div class="glass rounded-[2.5rem] border border-slate-700/50 overflow-hidden shadow-2xl animate-in fade-in duration-700">
+                        <div class="p-8 md:p-12">
+                            <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                                <div>
+                                    <h3 class="text-4xl font-black text-white mb-3 tracking-tighter italic">${p.name || 'Software JC'}</h3>
+                                    <div class="flex gap-2">
+                                        <span class="text-[10px] font-black uppercase tracking-widest bg-blue-600/20 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-500/20">${p.client || 'Cliente VIP'}</span>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-900/80 px-6 py-4 rounded-3xl border border-slate-800 text-right w-full md:w-auto min-w-[180px]">
+                                    <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1 text-center">Entrega Prevista</p>
+                                    <p class="text-2xl font-black text-blue-500 text-center italic">${p.delivery || 'Em análise'}</p>
+                                </div>
+                            </div>
+                            <div class="mb-14">
+                                <div class="flex justify-between items-end mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <span class="status-dot w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.6)]"></span>
+                                        <span class="text-sm font-bold text-slate-300 italic">${p.status || 'Ativo'}</span>
+                                    </div>
+                                    <span class="text-6xl font-black text-white tracking-tighter">${p.progress || 0}%</span>
+                                </div>
+                                <div class="w-full h-6 bg-slate-900 rounded-full p-1.5 border border-slate-800 shadow-inner">
+                                    <div class="progress-bar h-full bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-400 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)]" style="width: ${p.progress || 0}%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/40 rounded-3xl p-8 border border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4">
+                                <div class="text-center md:text-left">
+                                    <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1 italic">Última Sincronização de Código</p>
+                                    <p class="text-slate-300 font-bold tracking-tight">${p.lastUpdate || 'Acabou de ser atualizado'}</p>
+                                </div>
+                                <p class="text-xs text-slate-600 font-medium italic">Dados em tempo real via JC Soluções.</p>
+                            </div>
+                        </div>
+                    </div>`;
+        }
+
+        // --- PAINEL GESTOR ( DINÂMICO ) ---
+        async function setupAdmin() {
+            document.getElementById('page-title').innerText = "Gestão JC Cloud";
+            document.getElementById('page-subtitle').innerText = "Painel exclusivo para gerenciamento dinâmico de projetos.";
+
+            const content = document.getElementById('main-content');
+            content.classList.remove('justify-center');
+
+            // Layout Admin com Seção de Criação e Lista
+            content.innerHTML = `
+                    <div class="space-y-8 w-full animate-in fade-in duration-500">
+                        <!-- Card de Criação -->
+                        <div class="glass p-8 rounded-[2.5rem] border border-blue-500/20 shadow-xl">
+                            <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                                <i class="fas fa-plus-circle text-blue-500"></i> Criar Novo Projeto
+                            </h4>
+                            <div class="grid md:grid-cols-3 gap-4 mb-4 text-left">
+                                <div class="space-y-1">
+                                    <label class="text-[9px] uppercase font-black text-slate-500 ml-1 tracking-widest">ID Único (URL Slug)</label>
+                                    <input type="text" id="new-id" class="admin-input" placeholder="ex: ecommerce-xyz">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[9px] uppercase font-black text-slate-500 ml-1 tracking-widest">Nome do Projeto</label>
+                                    <input type="text" id="new-name" class="admin-input" placeholder="Nome do Software">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[9px] uppercase font-black text-slate-500 ml-1 tracking-widest">Cliente</label>
+                                    <input type="text" id="new-client" class="admin-input" placeholder="Nome do Cliente">
+                                </div>
+                            </div>
+                            <button id="btn-create" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-white transition-all shadow-lg shadow-blue-600/20">
+                                Inicializar na Cloud JC
+                            </button>
+                        </div>
+
+                        <div class="flex items-center gap-4 py-2">
+                            <div class="h-px bg-slate-800 flex-1"></div>
+                            <span class="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">Projetos Ativos</span>
+                            <div class="h-px bg-slate-800 flex-1"></div>
+                        </div>
+
+                        <!-- Lista de Projetos vindo do Firestore -->
+                        <div id="admin-list" class="grid gap-8">
+                            <div class="flex justify-center p-10 text-slate-600">
+                                <i class="fas fa-circle-notch fa-spin mr-2"></i> Buscando base de dados...
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            // Lógica de Criação
+            document.getElementById('btn-create').onclick = async () => {
+                const id = document.getElementById('new-id').value.trim().toLowerCase().replace(/\s+/g, '-');
+                const name = document.getElementById('new-name').value.trim();
+                const client = document.getElementById('new-client').value.trim();
+
+                if (!id || !name || !client) {
+                    alert("Por favor, preencha o ID, Nome e Cliente para criar.");
+                    return;
+                }
+
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'projects', id);
+                const checkSnap = await getDoc(docRef);
+
+                if (checkSnap.exists()) {
+                    alert("Este ID já está em uso. Escolha outro.");
+                    return;
+                }
+
+                await setDoc(docRef, {
+                    name,
+                    client,
+                    progress: 0,
+                    status: 'Projeto Inicializado',
+                    delivery: 'TBD',
+                    lastUpdate: new Date().toLocaleString('pt-BR')
+                });
+
+                document.getElementById('new-id').value = '';
+                document.getElementById('new-name').value = '';
+                document.getElementById('new-client').value = '';
+                alert("Projeto criado com sucesso!");
+            };
+
+            // Escutar a coleção em tempo real
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'projects');
+            onSnapshot(colRef, (snap) => {
+                const list = document.getElementById('admin-list');
+                if (snap.empty) {
+                    list.innerHTML = `<div class="p-10 text-center glass rounded-3xl text-slate-500 italic">Nenhum projeto encontrado. Crie um acima.</div>`;
+                    return;
+                }
+
+                list.innerHTML = "";
+                snap.forEach(docSnap => {
+                    const id = docSnap.id;
+                    const p = docSnap.data();
+
+                    const card = document.createElement('div');
+                    card.className = "glass p-8 rounded-[2.5rem] border border-slate-700 space-y-6 animate-in fade-in duration-300";
+                    card.innerHTML = `
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-xl font-black italic tracking-tighter text-blue-500 uppercase">${id}</h4>
+                                    <button onclick="window.copyLink('${id}')" class="text-[9px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-400 font-bold uppercase tracking-widest transition-all">
+                                        <i class="fas fa-link mr-1"></i> Link
+                                    </button>
+                                </div>
+                                <button onclick="window.deleteProject('${id}')" class="text-[9px] text-red-500/50 hover:text-red-500 font-black uppercase tracking-widest transition-all">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2 text-left">
+                                    <label class="text-[10px] font-bold uppercase text-slate-500 ml-1">Nome do Projeto</label>
+                                    <input type="text" id="name-${id}" class="admin-input" value="${p.name || ''}">
+                                </div>
+                                <div class="space-y-2 text-left">
+                                    <label class="text-[10px] font-bold uppercase text-slate-500 ml-1">Nome do Cliente</label>
+                                    <input type="text" id="client-${id}" class="admin-input" value="${p.client || ''}">
+                                </div>
+                                <div class="space-y-2 text-left">
+                                    <label class="text-[10px] font-bold uppercase text-slate-500 ml-1">Previsão de Entrega</label>
+                                    <input type="text" id="delivery-${id}" class="admin-input" value="${p.delivery || ''}" placeholder="Ex: Maio/2026">
+                                </div>
+                                <div class="space-y-2 text-left">
+                                    <label class="text-[10px] font-bold uppercase text-slate-500 ml-1">Progresso Atual (%)</label>
+                                    <input type="number" id="progress-${id}" class="admin-input font-bold text-blue-400" value="${p.progress || 0}" min="0" max="100">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 text-left">
+                                <label class="text-[10px] font-bold uppercase text-slate-500 ml-1">Status da Sprint</label>
+                                <input type="text" id="status-${id}" class="admin-input italic" value="${p.status || ''}" placeholder="Ex: Integrando API...">
+                            </div>
+
+                            <div class="flex justify-end pt-4">
+                                <button onclick="window.saveProjectData('${id}')" class="bg-blue-600 hover:bg-blue-500 px-12 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-blue-600/30 transition-all active:scale-95 text-white">
+                                    Sincronizar com Cliente
+                                </button>
+                            </div>
+                        `;
+                    list.appendChild(card);
+                });
+            });
+        }
+
+        // --- FUNÇÕES GLOBAIS ---
+        window.saveProjectData = async (id) => {
+            const data = {
+                name: document.getElementById(`name-${id}`).value,
+                client: document.getElementById(`client-${id}`).value,
+                delivery: document.getElementById(`delivery-${id}`).value,
+                progress: parseInt(document.getElementById(`progress-${id}`).value) || 0,
+                status: document.getElementById(`status-${id}`).value,
+                lastUpdate: new Date().toLocaleString('pt-BR')
+            };
+
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'projects', id);
+            try {
+                await setDoc(docRef, data, { merge: true });
+                alert(`✅ Dados de ${id.toUpperCase()} sincronizados com sucesso!`);
+            } catch (err) {
+                alert("❌ Erro ao salvar.");
+            }
+        };
+
+        window.deleteProject = async (id) => {
+            if (confirm(`Tem certeza que deseja apagar o projeto ${id.toUpperCase()}? Esta ação é irreversível.`)) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'projects', id));
+            }
+        };
+
+        window.copyLink = (id) => {
+            const link = `${window.location.origin}${window.location.pathname}?p=${id}`;
+            const tempInput = document.createElement("input");
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Link copiado para a área de transferência!");
+        };
+
+        function renderError(title, msg) {
+            const content = document.getElementById('main-content');
+            content.innerHTML = `
+                    <div class="glass p-20 rounded-[3rem] text-center border-dashed border-2 border-slate-800">
+                        <i class="fas fa-lock text-4xl text-yellow-600/50 mb-6"></i>
+                        <h4 class="text-2xl font-black mb-3 text-white tracking-tighter italic">${title}</h4>
+                        <p class="text-slate-500 font-medium">${msg}</p>
+                    </div>`;
+        }
+
+    </script>
+</body>
+</html>
